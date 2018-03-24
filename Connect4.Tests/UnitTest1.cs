@@ -1,16 +1,15 @@
-﻿using System;
-using Connect4.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Connect4.Models;
+using NUnit.Framework;
 
 namespace Connect4.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class UnitTest1
     {
-        private const bool YELLOW = true;
-        private const bool RED = false;
+        private const bool Yellow = true;
+        private const bool Red = false;
 
-        [TestMethod]
+        [Test]
         public void CheckPlayingANewBoardIsNotAWin()
         {
             var game = new Game();
@@ -22,7 +21,7 @@ namespace Connect4.Tests
             Assert.IsFalse(actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void CheckForWinningHorizontalMove()
         {
             var game = new Game();
@@ -36,7 +35,7 @@ namespace Connect4.Tests
             Assert.IsTrue(actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void CheckForWinningVerticalMove()
         {
             var game = new Game();
@@ -50,48 +49,48 @@ namespace Connect4.Tests
             Assert.IsTrue(actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void CheckForWinningDiagonalSEtoNW_Move()
         {
             var game = new Game();
             var board = new BoardAPI(Game.NUMBER_OF_COLUMNS, Game.NUMBER_OF_ROWS);
-            MakeNonWinningMove(game, 1, RED);
-            MakeNonWinningMove(game, 1, YELLOW);
-            MakeNonWinningMove(game, 1, RED);
-            MakeNonWinningMove(game, 1, YELLOW);
+            MakeNonWinningMove(game, 1, Red);
+            MakeNonWinningMove(game, 1, Yellow);
+            MakeNonWinningMove(game, 1, Red);
+            MakeNonWinningMove(game, 1, Yellow);
 
-            MakeNonWinningMove(game, 2, YELLOW);
-            MakeNonWinningMove(game, 2, RED);
-            MakeNonWinningMove(game, 2, YELLOW);
+            MakeNonWinningMove(game, 2, Yellow);
+            MakeNonWinningMove(game, 2, Red);
+            MakeNonWinningMove(game, 2, Yellow);
 
-            MakeNonWinningMove(game, 3, RED);
-            MakeNonWinningMove(game, 3, YELLOW);
+            MakeNonWinningMove(game, 3, Red);
+            MakeNonWinningMove(game, 3, Yellow);
 
-            board.MakeMove(game.Cells, 4, YELLOW);
-            var actualResult = board.WasWinningMove(game.Cells, 4, YELLOW);
+            board.MakeMove(game.Cells, 4, Yellow);
+            var actualResult = board.WasWinningMove(game.Cells, 4, Yellow);
             Assert.IsTrue(actualResult);
         }
 
 
-        [TestMethod]
+        [Test]
         public void CheckForWinningDiagonalSWtoNE_Move()
         {
             var game = new Game();
             var board = new BoardAPI(Game.NUMBER_OF_COLUMNS, Game.NUMBER_OF_ROWS);
-            MakeNonWinningMove(game, 4, RED);
-            MakeNonWinningMove(game, 4, YELLOW);
-            MakeNonWinningMove(game, 4, RED);
-            MakeNonWinningMove(game, 4, YELLOW);
+            MakeNonWinningMove(game, 4, Red);
+            MakeNonWinningMove(game, 4, Yellow);
+            MakeNonWinningMove(game, 4, Red);
+            MakeNonWinningMove(game, 4, Yellow);
 
-            MakeNonWinningMove(game, 3, YELLOW);
-            MakeNonWinningMove(game, 3, RED);
-            MakeNonWinningMove(game, 3, YELLOW);
+            MakeNonWinningMove(game, 3, Yellow);
+            MakeNonWinningMove(game, 3, Red);
+            MakeNonWinningMove(game, 3, Yellow);
 
-            MakeNonWinningMove(game, 2, RED);
-            MakeNonWinningMove(game, 2, YELLOW);
+            MakeNonWinningMove(game, 2, Red);
+            MakeNonWinningMove(game, 2, Yellow);
 
-            board.MakeMove(game.Cells, 1, YELLOW);
-            var actualResult = board.WasWinningMove(game.Cells, 1, YELLOW);
+            board.MakeMove(game.Cells, 1, Yellow);
+            var actualResult = board.WasWinningMove(game.Cells, 1, Yellow);
             Assert.IsTrue(actualResult);
         }
 
@@ -102,7 +101,7 @@ namespace Connect4.Tests
             Assert.IsFalse(board.WasWinningMove(game.Cells, columnNumber, isYellow));
         }
 
-        [TestMethod]
+        [Test]
         public void CheckNewBoardIsNotFull()
         {
             var game = new Game();
@@ -111,7 +110,7 @@ namespace Connect4.Tests
             Assert.IsFalse(actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void CheckFullyPlayedBoardIsFull()
         {
             var game = new Game();
@@ -129,7 +128,7 @@ namespace Connect4.Tests
             Assert.IsTrue(actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void CheckHeightOfEmptyColumnIs0()
         {
             var game = new Game();
@@ -138,7 +137,7 @@ namespace Connect4.Tests
             Assert.AreEqual(0, actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void CheckHeightOfPlayedColumnIsCorrect()
         {
             var game = new Game();
@@ -152,7 +151,7 @@ namespace Connect4.Tests
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestMoveCannotBeMadeToInvalidNegativeColumn()
         {
             var game = new Game();
@@ -162,7 +161,7 @@ namespace Connect4.Tests
             Assert.IsFalse(actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMoveCannotBeMadeToInvalidPostiveColumn()
         {
             var game = new Game();
@@ -173,7 +172,7 @@ namespace Connect4.Tests
             Assert.IsFalse(actualResult);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMoveCanBeMadeToValidColumn()
         {
             var game = new Game();

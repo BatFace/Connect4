@@ -9,16 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.Tests", "Connect4.
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Connect4Database", "Connect4Database\Connect4Database.sqlproj", "{448B24FE-B8F2-4EA8-BECA-8329619707D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.ExampleBot", "Connect4.ExampleBot\Connect4.ExampleBot.csproj", "{D23AC326-B0C5-4D5D-96FA-21D6DB4F8653}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.Manual", "Connect4.Manual\Connect4.Manual.csproj", "{F5792DBC-A6BC-4295-A604-730A830C8CDB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.LookAhead", "Connect4.LookAhead\Connect4.LookAhead.csproj", "{F5430DB2-6F5D-4D0A-B730-DBFB7E76D515}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.AlphaBeta", "Connect4.AlphaBeta\Connect4.AlphaBeta.csproj", "{BAB54F01-B14F-466E-B75D-A69E70737F43}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connect4.MonteCarlo", "Connect4.MonteCarlo\Connect4.MonteCarlo.csproj", "{53F0D56F-E55C-4CEE-9F96-52E52F3B7386}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
