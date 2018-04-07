@@ -243,3 +243,25 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# npm
+npm-debug.log
+node_modules
+linux_node_modules
+yarn-error.log
+package-lock.json
+npm-cache
+
+# OSX
+.DS_Store
+
+# IDE
+*.iml
+*.ipr
+*.iws
+.settings
+.idea
+**/*.iml
+.ipr
+.iws
+.vscode

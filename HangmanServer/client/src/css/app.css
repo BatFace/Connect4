@@ -1,0 +1,109 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #458848;
+  height: 60px;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.game-overview {
+  margin: 2% 0;
+  overflow: hidden;
+  flex-grow: 1;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.game-overview__tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  max-width: 300px;
+  max-height: 300px;
+  flex: 1 1 300px;
+  border: 1px solid #111;
+  padding: 5px;
+  margin-bottom: 30px;
+}
+
+.game-overview__team-name {
+  background: #458848;
+  color: white;
+}
+
+.hangman__refresh-button {
+  background: none;
+  border: none;
+  padding: 0 1.5em;
+  cursor: pointer;
+}
+
+.line {
+  animation: offset 0.3s linear forwards;
+  stroke-dashoffset: 200;
+  stroke-dasharray: 200;
+}
+
+.stickman {
+  stroke: #000;
+  stroke-width: 0.4em;
+  fill: none;
+}
+
+.head {
+  stroke-width: 0.3em;
+}
+
+.gibbet {
+  stroke: #000;
+  stroke-width: 0.4em;
+  fill:none;
+  animation: offset 0.3s linear forwards;
+  stroke-dashoffset: 300;
+  stroke-dasharray: 300;
+}
+
+.rope {
+  stroke: #e5b34e;
+  stroke-width: 0.2em;
+  fill: none;
+}
+
+@keyframes offset {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
