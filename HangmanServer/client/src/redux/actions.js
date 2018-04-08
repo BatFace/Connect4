@@ -10,7 +10,7 @@ export const loadGameStatusesSucceeded = statuses => ({
 });
 
 export const getGameStatuses = () => dispatch => {
-  return makeServerRequest("/api/users?full=true", "GET", {})
+  return makeServerRequest(`${process.env.REACT_APP_API_URL}/api/users?full=true`, "GET", {})
     .then(result => dispatch(loadGameStatusesSucceeded(result)))
     .catch(e => {
       alert(e.payload);

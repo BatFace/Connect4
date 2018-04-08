@@ -21,7 +21,7 @@
   "proxy": {
     "/api": {
       "target": "http://localhost:3005",
-      "secure":false,
+      "secure": false,
       "logLevel": "debug",
       "changeOrigin": true
     }
