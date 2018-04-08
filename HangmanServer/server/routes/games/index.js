@@ -51,7 +51,7 @@ gamesRouter.post("/", verifyToken, function(req, res, next) {
 });
 
 gamesRouter.patch("/:id", verifyToken, function(req, res, next) {
-  User.findById(req.userId, {games: { $slice: -1 }})
+  User.findById(req.userId)
     .exec(function(error, user) {
     if (error) {
       return res.status(500).send("Game was not updated.");
@@ -67,7 +67,7 @@ gamesRouter.patch("/:id", verifyToken, function(req, res, next) {
           return res.send(err);
         }
 
-        const currentGameId = user.games[0].id;
+        const currentGameId = user.games[user.games.length - 1].id;
 
         if (currentGameId !== req.params.id) {
           const err = new Error(`${req.params.id} is not the current game, ${currentGameId} is`);
