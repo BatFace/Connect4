@@ -20,6 +20,15 @@ gamesRouter.get("/:id", function(req, res) {
   };
 });
 
+gamesRouter.get("/current", function(req, res) {
+  // query DB here
+  return {
+    word: "BANANAS",
+    lettersGuessed: ["R", "T"],
+    complete: false
+  };
+});
+
 gamesRouter.post("/", verifyToken, function(req, res, next) {
   // if current game incomplete, cancel it (mark it as complete + add a loss to user lost tally)
   User.findById(req.userId).exec(function(error, user) {
@@ -81,14 +90,23 @@ gamesRouter.patch("/:id", verifyToken, function(req, res, next) {
           if (err) {
             return res.send(err);
           }
-          return res.send(user.games.id(currentGameId));
+
+          const wordAfterUpdate =  user.games.id(currentGameId);
+
+          return res.send({
+            progress: _getProgress(wordAfterUpdate.word, wordAfterUpdate.lettersGuessed.map(l => l.letter)), //TODO Mongoose computed field
+            lettersGuessed: wordAfterUpdate.lettersGuessed,
+            complete: false
+          })
         });
       }
     }
   });
 });
 
-
+const _getProgress = (word, lettersGuessed) => {
+  return word.split("").map(letter => lettersGuessed.indexOf(letter) !== -1 ? letter : null);
+};
 
 
 module.exports = gamesRouter;

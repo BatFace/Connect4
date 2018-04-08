@@ -41,7 +41,7 @@ authRouter.post("/login", function(req, res) {
     if (!passwordIsValid)
       return res.status(401).send({ auth: false, token: null });
 
-    const token = jwt.sign({ id: user._id }, config.secret, {
+    const token = jwt.sign({ id: user._id }, process.env.AUTH_SECRET, {
       expiresIn: 86400
     });
 
