@@ -9,5 +9,11 @@ Prerequisites: Yarn
     - AUTH_SECRET=\<secret for signing/verifying json web tokens goes here e.g. not-so-secret-auth-secret \>
 
     - DB_CONNECTION_STRING=\<mongodb connection string goes here e.g. mongodb://localhost/hangman />
+    
+    - HANGMAN_CLIENT_URL=http://localhost:3000
+
+3. Add a .env file in the root of the client directory with:
+
+    - REACT_APP_API_URL=http://localhost:3005
 
 3. Run `yarn install` and `yarn start` in both the client and server directories
