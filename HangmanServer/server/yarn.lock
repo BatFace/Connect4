@@ -283,7 +283,7 @@ lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
 
-lodash@^4.14.0:
+lodash@^4.14.0, lodash@^4.3.0:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
@@ -329,6 +329,12 @@ mongodb@3.0.4:
 mongoose-legacy-pluralize@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
+
+mongoose-private-paths@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/mongoose-private-paths/-/mongoose-private-paths-0.7.0.tgz#f75ab2f70d7bb25f3b82f1a6a99bff1910348730"
+  dependencies:
+    lodash "^4.3.0"
 
 mongoose-unique-validator@^2.0.0:
   version "2.0.0"

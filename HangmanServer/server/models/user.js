@@ -1,8 +1,9 @@
-var mongoose = require("mongoose");
-var Game = require("./game");
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require("mongoose");
+const uniqueValidator = require('mongoose-unique-validator');
+const privatePaths = require('mongoose-private-paths');
+const Game = require("./game");
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     unique: true,
@@ -17,22 +18,41 @@ var UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
-  },
-  won: {
-    type: Number,
-    required: false,
-    default: 0
-  },
-  lost: {
-    type: Number,
-    required: false,
-    default: 0
+    required: true,
+    private: true
   },
   games: [Game]
+  },
+  {
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true }
+  });
+
+UserSchema.virtual("currentGame").get(function () {
+  const currentGame = this.games.length > 0 && this.games[this.games.length - 1];
+  return currentGame ? currentGame : null;
+});
+
+UserSchema.virtual("won").get(function () {
+  if(this.games.length > 0) {
+    return this.games.reduce((acc, game) => {
+      return game.complete && game.won ? acc + 1 : acc;
+    }, 0);
+  }
+  return 0;
+});
+
+UserSchema.virtual('lost').get(function () {
+  if(this.games.length > 0) {
+    return this.games.reduce((acc, game) => {
+      return game.complete && !game.won ? acc + 1 : acc;
+    }, 0);
+  }
+  return 0;
 });
 
 UserSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} to be unique.' });
+UserSchema.plugin(privatePaths, { ignore: ["id"] });
 
 mongoose.model("User", UserSchema);
 

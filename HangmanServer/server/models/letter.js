@@ -4,12 +4,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 var LetterSchema = new mongoose.Schema({
   letter: {
     type: String,
-    validate: {
-      validator: function(v) {
-        return /[A-Za-z]/.test(v);
-      },
-      message: '{VALUE} is not a valid letter'
-    },
+    validate: [(l) => { return RegExp("^[A-Z|a-z]$").test(l); }, '{VALUE} is not a valid letter'],
     set: function(v) {
       return v.toUpperCase();
     }

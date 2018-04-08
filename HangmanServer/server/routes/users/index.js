@@ -1,16 +1,16 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var verifyToken = require("../verifyToken");
-var User = require("../../models/user");
+const express = require("express");
+const bodyParser = require("body-parser");
+const verifyToken = require("../verifyToken");
+const User = require("../../models/user");
 
-var userRouter = express.Router();
+let userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
 userRouter.get("/", function(req, res) {
   const requestedFull = req.query.full === "true";
 
   if(requestedFull){
-    User.find({}, {games: { $slice: -1 }}, function(error, users) {
+    User.find({}, function(error, users) {
       if (error) {
         return res.status(500).send("There was a problem fetching the users.");
       }

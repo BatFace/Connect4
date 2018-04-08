@@ -25,10 +25,10 @@ class App extends Component {
           {this.props.statuses &&
             this.props.statuses.map(user => {
               const lettersGuessed =
-                user.games[0] && user.games[0].lettersGuessed.length;
+                user.currentGame && user.currentGame.misses;
               return (
-                <div
-                  key={`hangman-${user._id}`}
+                <article
+                  key={`hangman-${user.id}`}
                   className="game-overview__tile"
                 >
                   <header className="game-overview__team-name">
@@ -37,7 +37,7 @@ class App extends Component {
                   <Hangman guessesTaken={lettersGuessed} />
                   <span>Won: {user.won}</span>
                   <span>Lost: {user.lost}</span>
-                </div>
+                </article>
               );
             })}
         </main>
