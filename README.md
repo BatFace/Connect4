@@ -17,14 +17,20 @@ A hangman game server and some sample bots to communicate with it.
 |Verb|Path|Requires token|Description|
 |----------|----------|---------|----------|
 |GET|/|false|Returns a list of all registered users
-|GET|?full=true|false|Returns a list of all registered users + their current game
+|GET|/:id|false|Returns a single user
 
 ### /games
 
 |Verb|Path|Requires token|Description|
 |----------|----------|---------|----------|
 |POST|/|true|Creates a new game
-|PATCH|/current|true|Play a turn of the current game. Returns the state of the game after that move has been played if successful
+|PATCH|/current|true|Play a turn of the current game. Returns the state of the game after that move has been played (if successful)
 |GET|/current|true|Returns a single game object representing the current game
 |GET|/:id|true|Returns a single game object (if the current user has a game with that ID)
+
+### /words
+
+|Verb|Path|Requires token|Description|
+|----------|----------|---------|----------|
+|GET|?random=true&size=1|true|Returns a single word at random from the SOWPODS dictionary used by the game server
 

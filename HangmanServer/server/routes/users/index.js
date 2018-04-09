@@ -7,27 +7,17 @@ let userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
 userRouter.get("/", function(req, res) {
-  const requestedFull = req.query.full === "true";
+  User.find({}, "-__v",  function(err, users) {
+    if (err) {
+      return res.status(500).send("There was a problem fetching the users.");
+    }
 
-  if(requestedFull){
-    User.find({}, function(error, users) {
-      if (error) {
-        return res.status(500).send("There was a problem fetching the users.");
-      }
-      res.status(200).send(users);
-    });
-  } else {
-    User.find({}, ["username", "email", "-_id"], function(err, users) {
-      if (err) {
-        return res.status(500).send("There was a problem fetching the users.");
-      }
-      res.status(200).send(users);
-    });
-  }
+    res.status(200).send(users);
+  });
 });
 
 userRouter.get("/:id", verifyToken, function(req, res) {
-  User.findById(req.params.id, function(error, user) {
+  User.findById(req.params.id, "-__v",  function(error, user) {
     if (error) {
       return res.status(500).send("There was a problem fetching the user.");
     }

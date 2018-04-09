@@ -1,14 +1,10 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var WordSchema = new mongoose.Schema({
+const WordSchema = new mongoose.Schema({
   word: {
     type: String,
     required: true,
     trim: true
-  },
-  letters: {
-    type: Number,
-    required: true
   }
 });
 

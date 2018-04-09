@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const User = require("../../models/user");
+const Word = require("../../models/word");
 const verifyToken = require("../verifyToken");
 
 const gamesRouter = express.Router();
@@ -8,26 +9,34 @@ const gamesRouter = express.Router();
 gamesRouter.use(bodyParser.urlencoded({ extended: true }));
 gamesRouter.use(bodyParser.json());
 
-gamesRouter.get("/:id", function(req, res) {
-  // query DB here
-  return {
-    word: "BANANAS",
-    lettersGuessed: ["R", "T"],
-    complete: false
-  };
+gamesRouter.get("/:id", verifyToken, function(req, res) {
+  User.findById(req.userId).exec(function(error, user) {
+    if (error) {
+      return res.status(500).send("There was a problem fetching the game.");
+    } else {
+      if (user === null) {
+        return res.status(403).send("User not found");
+      } else {
+        const game = user.games.id(req.params.id);
+        if(game) {
+          return res.status(200).send(user.games);
+        } else {
+          return res.status(404).send("Game not found");
+        }
+      }
+    }
+  });
 });
 
 gamesRouter.get("/", verifyToken, function(req, res) {
   User.findById(req.userId).exec(function(error, user) {
     if (error) {
-      return next(error);
+      return res.status(500).send("There was a problem fetching the games.");
     } else {
       if (user === null) {
-        const err = new Error("User not found");
-        err.status = 400;
-        return next(err);
+        return res.status(403).send("User not found");
       } else {
-        return res.send(user.games);
+        return res.status(200).send(user.games);
       }
     }
   });
@@ -36,12 +45,10 @@ gamesRouter.get("/", verifyToken, function(req, res) {
 gamesRouter.get("/current", function(req, res) {
   User.findById(req.userId).exec(function(error, user) {
     if (error) {
-      return next(error);
+      return res.status(500).send("There was a problem fetching the current game.");
     } else {
       if (user === null) {
-        const err = new Error("User not found");
-        err.status = 400;
-        return next(err);
+        return res.status(403).send("User not found");
       } else {
         return res.send(user.currentGame);
       }
@@ -50,28 +57,28 @@ gamesRouter.get("/current", function(req, res) {
 });
 
 gamesRouter.post("/", verifyToken, function(req, res, next) {
-  // TODO: if current game incomplete, cancel it (mark it as complete + add a loss to user lost tally)
   User.findById(req.userId).exec(function(error, user) {
     if (error) {
-      return next(error);
+      return res.status(500).send("There was a problem creating a new game.");
     } else {
       if (user === null) {
-        const err = new Error("User not found");
-        err.status = 400;
-        return next(err);
+        return res.status(403).send("User not found");
       } else {
-        // TODO: query dictionary for word e.g. Dictionary.aggregate({ $sample: { size: 1 } })
-        user.games.push({
-          _word: "BANANAS",
-          complete: false
-        });
+        Word.aggregate([
+          { $sample: { size: 1 } }
+        ], function(err, result) {
+          user.games.push({
+            _word: result[0].word,
+            complete: false
+          });
 
-        user.save(function(err) {
-          if (err) {
-            return res.status(403).send({error: err.message});
-          }
+          user.save(function(err) {
+            if (err) {
+              return res.status(403).send({error: err.message});
+            }
 
-          return res.status(201).send(user.games[user.games.length -1]);
+            return res.status(201).send(user.games[user.games.length -1]);
+          });
         });
       }
     }
@@ -85,7 +92,7 @@ gamesRouter.patch("/current", verifyToken, function(req, res) {
       return res.status(500).send("Game was not updated.");
     } else {
       if (user === null) {
-        return res.status(400).send("User not found");
+        return res.status(403).send("User not found");
       } else {
         if(user.games.length === 0) {
           return res.status(404).send("No games found");

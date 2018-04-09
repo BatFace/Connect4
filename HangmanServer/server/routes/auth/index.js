@@ -50,7 +50,7 @@ authRouter.post("/login", function(req, res) {
 });
 
 authRouter.get("/me", verifyToken, function(req, res) {
-  User.findById(req.userId, ["username", "email", "-_id"], function(err, user) {
+  User.findById(req.userId, function(err, user) {
     if (err) {
       return res.status(500).send("There was a problem finding the user.");
     }

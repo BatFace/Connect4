@@ -8,7 +8,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    trim: true
+    trim: true,
+    maxlength: [50, 'Usernames must be 50 characters or fewer in length']
   },
   email: {
     type: String,
@@ -21,7 +22,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     private: true
   },
-  games: [Game]
+  games: {
+    type: [Game],
+    private: true
+  }
   },
   {
     toObject: { virtuals: true },
@@ -30,7 +34,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.virtual("currentGame").get(function () {
   const currentGame = this.games.length > 0 && this.games[this.games.length - 1];
-  return currentGame ? currentGame : null;
+  return currentGame ? currentGame.toJSON() : null;
 });
 
 UserSchema.virtual("won").get(function () {
