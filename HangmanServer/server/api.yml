@@ -4,7 +4,7 @@
     version: "1.0.0"
     title: "Hangman Server API overview"
     description: "A server against which you can play Hangman!"
-  host: "dojo-hangman.herokuapp.com"
+  host: "dojo-hangman-server.herokuapp.com"
   basePath: "/api"
   consumes:
     - "application/json"
