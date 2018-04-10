@@ -20,6 +20,8 @@
     "mongoose": "^5.0.1",
     "mongoose-private-paths": "^0.7.0",
     "mongoose-unique-validator": "^2.0.0",
-    "prettier": "^1.11.1"
+    "prettier": "^1.11.1",
+    "swagger-ui-express": "^3.0.6",
+    "yamljs": "^0.3.0"
   }
 }

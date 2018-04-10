@@ -1,0 +1,155 @@
+---
+  swagger: "3.0"
+  info:
+    version: "1.0.0"
+    title: "Hangman Server API overview"
+    description: "A server against which you can play Hangman!"
+  host: "localhost:3005"
+  basePath: "/api"
+  consumes:
+    - "application/json"
+  produces:
+    - "application/json"
+  schemes:
+    - http
+    - https
+  securityDefinitions:
+    Bearer:
+      type: apiKey
+      name: x-access-token
+      in: header
+  paths:
+    /api/auth/register:
+     post:
+       tags:
+         - api/auth
+       summary: "Create an account"
+       produces:
+         - "application/json"
+       responses:
+         "201":
+           description: "An account was successfully created"
+           schema:
+              $ref: "#/definitions/Auth"
+    /api/auth/login:
+         post:
+           tags:
+             - api/auth
+           summary: "Login and receive an auth token"
+           produces:
+             - "application/json"
+           responses:
+             "200":
+               description: "An account exists with those credentials, so here's a new auth token for you"
+               schema:
+                  $ref: "#/definitions/Auth"
+    /games:
+      get:
+        tags:
+          - api/games
+        security:
+          - Bearer: []
+        summary: "Get the games belonging to the current user"
+        produces:
+          - "application/json"
+        responses:
+          "200":
+            description: "A list of games."
+            schema:
+              type: "array"
+              items:
+                $ref: "#/definitions/Auth"
+    /games/current:
+      get:
+        tags:
+          - api/games
+        security:
+          - Bearer: []
+        summary: "Get the latest game belonging to the current user"
+        produces:
+          - "application/json"
+        responses:
+          "200":
+            description: "A single game."
+            schema:
+              $ref: "#/definitions/Game"
+      patch:
+        tags:
+          - api/games
+        security:
+          - Bearer: []
+        summary: "Play a turn of the current game"
+        parameters:
+          - in: body
+            name: move
+            description: The move to make
+            schema:
+              $ref: "#/definitions/Move"
+        responses:
+          "200":
+            description: "The updated game state."
+            schema:
+              $ref: "#/definitions/Game"
+    /games/{gameId}:
+      get:
+        tags:
+          - api/games
+        security:
+          - Bearer: []
+        summary: "Get one of the games belonging to the current user"
+        parameters:
+          - in: path
+            name: gameId
+            schema:
+              type: string
+            required: true
+        produces:
+          - "application/json"
+        responses:
+          "200":
+            description: "A single game."
+            schema:
+              $ref: "#/definitions/Game"
+
+  definitions:
+    Auth:
+      type: "object"
+      properties:
+        token:
+          type: "string"
+          description: "A JSON web token"
+    Game:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        lettersGuessed:
+          type: "array"
+          items:
+            $ref: "#/definitions/Letter"
+        progress:
+          type: "array"
+          items:
+            $ref: "#/definitions/Letter?"
+        misses:
+          type: "integer"
+          maximum: 10
+        complete:
+          type: "boolean"
+    Letter:
+      type: "string"
+      minLength: 1
+      maxLength: 1
+    Letter?:
+      type: "string"
+      nullable: true
+      minLength: 1
+      maxLength: 1
+    Move:
+      type: "object"
+      properties:
+        letter:
+          $ref: "#/definitions/Letter"
+
+
+
