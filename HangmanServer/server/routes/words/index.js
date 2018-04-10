@@ -1,12 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const verifyToken = require("../verifyToken");
 const Word = require("../../models/word");
 
 let wordRouter = express.Router();
 wordRouter.use(bodyParser.json());
 
-wordRouter.get("/", verifyToken, function(req, res) {
+wordRouter.get("/", function(req, res) {
   const random = req.query.random === "true";
   const size = req.query.size === "1";
 

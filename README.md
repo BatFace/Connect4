@@ -12,13 +12,6 @@ A hangman game server and some sample bots to communicate with it.
 |POST|/login|false|Returns a new auth token if the credentials provided correspond to an existing account
 |GET|/me|true|Returns a description of the current user
 
-### /users
-
-|Verb|Path|Requires token|Description|
-|----------|----------|---------|----------|
-|GET|/|false|Returns a list of all registered users
-|GET|/:id|false|Returns a single user
-
 ### /games
 
 |Verb|Path|Requires token|Description|
@@ -32,5 +25,12 @@ A hangman game server and some sample bots to communicate with it.
 
 |Verb|Path|Requires token|Description|
 |----------|----------|---------|----------|
-|GET|?random=true&size=1|true|Returns a single word at random from the SOWPODS dictionary used by the game server
+|GET|?random=true&size=1|false|Returns a single word at random from the SOWPODS dictionary used by the game server
+
+### /users
+
+|Verb|Path|Requires token|Description|
+|----------|----------|---------|----------|
+|GET|/|false|Returns a list of all registered users
+|GET|/:id|false|Returns a single user
 
