@@ -13,13 +13,13 @@ authRouter.use(bodyParser.json());
 authRouter.post("/register", function(req, res) {
   const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
-  User.create({
+  User.create(
+    {
       username: req.body.username,
-      email: req.body.email,
       password: hashedPassword
     },
     function(err, user) {
-      if (err) return res.status(500).send("User could not be created.");
+      if (err) return res.status(403).send({ error: err.message });
 
       const token = jwt.sign({ id: user._id }, process.env.AUTH_SECRET, {
         expiresIn: 86400
@@ -31,12 +31,15 @@ authRouter.post("/register", function(req, res) {
 });
 
 authRouter.post("/login", function(req, res) {
-  User.findOne({ email: req.body.email }, function(err, user) {
-    if (err) return res.status(500).send("Error on the server.");
+  User.findOne({ username: req.body.username }, function(err, user) {
+    if (err) return res.status(500).send({ error: "Error on the server." });
 
-    if (!user) return res.status(404).send("No user found.");
+    if (!user) return res.status(404).send({ error: "No user found." });
 
-    const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+    const passwordIsValid = bcrypt.compareSync(
+      req.body.password,
+      user.password
+    );
 
     if (!passwordIsValid)
       return res.status(401).send({ auth: false, token: null });

@@ -1,7 +1,7 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 
 const HangmanPlaceholder = () => (
- <Fragment>
+  <Fragment>
     <line
       id="gibbet-base"
       x1="27.2282"
@@ -79,16 +79,16 @@ const HangmanPlaceholder = () => (
       className="hangman-ghost__stickman"
       transform="matrix(0.474113, -0.155715, 0.155715, 0.474113, -65.0204, 28.5131)"
     />
-     <line
-       id="left-arm"
-       x1="351.874"
-       y1="360.461"
-       x2="351.874"
-       y2="446.461"
-       className="hangman-ghost__stickman"
-       transform="matrix(0.470677, 0.144463, -0.142393, 0.47554, 51.6796, -99.6718)"
-     />
- </Fragment>
+    <line
+      id="left-arm"
+      x1="351.874"
+      y1="360.461"
+      x2="351.874"
+      y2="446.461"
+      className="hangman-ghost__stickman"
+      transform="matrix(0.470677, 0.144463, -0.142393, 0.47554, 51.6796, -99.6718)"
+    />
+  </Fragment>
 );
 
 export default HangmanPlaceholder;

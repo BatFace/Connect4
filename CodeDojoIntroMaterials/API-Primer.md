@@ -2,11 +2,11 @@
 
 ## API?
 
-Application Programming Interface. A set of -- ideally! -- clearly defined methods and tools which allow consumers to act upon or communicate with the application/server which has that API. In the case of the Hangman server, that API HTTP-based.
+Application Programming Interface. A set of -- ideally! -- clearly defined methods and tools which allow consumers to act upon or communicate with the application/server which has that API. In the case of this Hangman server, that API HTTP-based.
 
 ## HTTP?
 
-Hypertext Transfer Protocol, a message-based standard for making request over the web.
+Hypertext Transfer Protocol, a message-based standard for making requests over the web.
 
 An HTTP request has four parts (of which only 1 and 3 are mandatory):
 
@@ -18,7 +18,7 @@ An HTTP request has four parts (of which only 1 and 3 are mandatory):
 For communication with this HTTP-based API, you need to be able to:
 1. Construct HTTP requests
 2. Set the header "x-access-token" with an authentication token for those requests that require a token
-3. Set a JSON-formatted request body for POST and PATCH requests
+3. Set a JSON-formatted request body for POST and PATCH requests (along with a "Content-Type" header of "application/json")
 
 ## JSON?
 

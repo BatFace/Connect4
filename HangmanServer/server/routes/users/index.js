@@ -7,9 +7,11 @@ let userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
 userRouter.get("/", function(req, res) {
-  User.find({}, "-__v",  function(err, users) {
+  User.find({}, "-__v", function(err, users) {
     if (err) {
-      return res.status(500).send("There was a problem fetching the users.");
+      return res
+        .status(500)
+        .send({ error: "There was a problem fetching users." });
     }
 
     res.status(200).send(users);
@@ -17,13 +19,15 @@ userRouter.get("/", function(req, res) {
 });
 
 userRouter.get("/:id", verifyToken, function(req, res) {
-  User.findById(req.params.id, "-__v",  function(error, user) {
+  User.findById(req.params.id, "-__v", function(error, user) {
     if (error) {
-      return res.status(500).send("There was a problem fetching the user.");
+      return res
+        .status(500)
+        .send({ error: "There was a problem fetching users." });
     }
 
     if (!user) {
-      return res.status(404).send("No user found.");
+      return res.status(404).send({ error: "No user found" });
     }
     res.status(200).send(user);
   });

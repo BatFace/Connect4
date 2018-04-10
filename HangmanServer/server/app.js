@@ -10,9 +10,11 @@ const { auth, users, games, words } = require("./routes");
 
 mongoose.connect(process.env.DB_CONNECTION_STRING);
 
-app.use(cors({
-  origin: process.env.HANGMAN_CLIENT_URL
-}));
+app.use(
+  cors({
+    origin: process.env.HANGMAN_CLIENT_URL
+  })
+);
 
 app.use("/api/auth", auth);
 app.use("/api/users", users);
