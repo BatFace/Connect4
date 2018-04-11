@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
         validator: function(value) {
           return /^\w*$/.test(value);
         },
-        message: 'Usernames may not contain any spaces'
+        message: 'Usernames may not contain any spaces or special characters (except underscores)'
       }
     },
     password: {
