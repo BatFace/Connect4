@@ -1,13 +1,9 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const User = require("../../models/user");
 const Word = require("../../models/word");
 const verifyToken = require("../verifyToken");
 
 const gamesRouter = express.Router();
-
-gamesRouter.use(bodyParser.urlencoded({ extended: true }));
-gamesRouter.use(bodyParser.json());
 
 gamesRouter.get("/current", verifyToken, function(req, res) {
   User.findById(req.userId).exec(function(error, user) {

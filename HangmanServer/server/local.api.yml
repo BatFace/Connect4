@@ -1,15 +1,15 @@
 ---
-  swagger: "3.0"
+  swagger: 3.0
   info:
-    version: "1.0.0"
-    title: "Hangman Server API overview"
-    description: "A server against which you can play Hangman!"
-  host: "localhost:3005"
-  basePath: "/api"
+    version: 1.0.0
+    title: Hangman Server API overview
+    description: A server against which you can play Hangman!
+  host: localhost:3005
+  basePath: /api
   consumes:
-    - "application/json"
+    - application/json
   produces:
-    - "application/json"
+    - application/json
   schemes:
     - http
   securityDefinitions:
@@ -22,97 +22,97 @@
      post:
        tags:
          - api/auth
-       summary: "Create an account"
+       summary: Create an account
        produces:
-         - "application/json"
+         - application/json
        parameters:
          - in: body
            name: account
            description: The account to create
            schema:
-             $ref: "#/definitions/Account"
+             $ref: #/definitions/Account
        responses:
-         "201":
-           description: "An account was successfully created"
+         201:
+           description: An account was successfully created
            schema:
-              $ref: "#/definitions/Auth"
+              $ref: #/definitions/Auth
     /auth/login:
          post:
            tags:
              - api/auth
-           summary: "Login and receive an auth token"
+           summary: Login and receive an auth token
            produces:
-             - "application/json"
+             - application/json
            responses:
-             "200":
-               description: "An account exists with those credentials, so here's a new auth token for you"
+             200:
+               description: An account exists with those credentials, so here's a new auth token for you
                schema:
-                  $ref: "#/definitions/Auth"
+                  $ref: #/definitions/Auth
     /games:
       post:
         tags:
           - api/games
         security:
           - Bearer: []
-        summary: "Start a new game"
+        summary: Start a new game
         responses:
-          "200":
-            description: "A single game."
+          200:
+            description: A single game.
             schema:
-              $ref: "#/definitions/Game"
+              $ref: #/definitions/Game
       get:
         tags:
           - api/games
         security:
           - Bearer: []
-        summary: "Get the games belonging to the current user"
+        summary: Get the games belonging to the current user
         produces:
-          - "application/json"
+          - application/json
         responses:
-          "200":
-            description: "A list of games."
+          200:
+            description: A list of games.
             schema:
-              type: "array"
+              type: array
               items:
-                $ref: "#/definitions/Auth"
+                $ref: #/definitions/Auth
     /games/current:
       get:
         tags:
           - api/games
         security:
           - Bearer: []
-        summary: "Get the latest game belonging to the current user"
+        summary: Get the latest game belonging to the current user
         produces:
-          - "application/json"
+          - application/json
         responses:
-          "200":
-            description: "A single game."
+          200:
+            description: A single game.
             schema:
-              $ref: "#/definitions/Game"
+              $ref: #/definitions/Game
       patch:
         tags:
           - api/games
         security:
           - Bearer: []
-        summary: "Play a turn of the current game"
+        summary: Play a turn of the current game
         parameters:
           - in: body
             name: move
             description: The move to make
             schema:
-              $ref: "#/definitions/Move"
+              $ref: #/definitions/Move
         responses:
-          "200":
-            description: "The updated game state."
+          200:
+            description: The updated game state.
             schema:
-              $ref: "#/definitions/Game"
+              $ref: #/definitions/Game
     /games/{gameId}:
       get:
         tags:
           - api/games
         security:
           - Bearer: []
-        summary: "Get one of the games belonging to the current user"
+        summary: Get one of the games belonging to the current user
         parameters:
           - in: path
             name: gameId
@@ -120,12 +120,12 @@
               type: string
             required: true
         produces:
-          - "application/json"
+          - application/json
         responses:
-          "200":
-            description: "A single game."
+          200:
+            description: A single game.
             schema:
-              $ref: "#/definitions/Game"
+              $ref: #/definitions/Game
     /words:
       get:
         tags:
@@ -143,62 +143,62 @@
              type: boolean
             required: true
             description: Must be 1
-        summary: "Returns a single word at random from the SOWPODS dictionary used by the game server"
-        description: "Only works with the query string ?random=true&size=1"
+        summary: Return a single word at random from the SOWPODS dictionary used by the game server
+        description: Only works with the query string ?random=true&size=1
         responses:
-            "200":
-              description: "A single word."
+            200:
+              description: A single word.
               schema:
-                $ref: "#/definitions/Word"
+                $ref: #/definitions/Word
 
   definitions:
     Account:
-      type: "object"
+      type: object
       properties:
         username:
-          type: "string"
+          type: string
         password:
-          type: "string"
+          type: string
     Auth:
-      type: "object"
+      type: object
       properties:
         token:
-          type: "string"
-          description: "A JSON web token"
+          type: string
+          description: A JSON web token
     Game:
-      type: "object"
+      type: object
       properties:
         id:
-          type: "string"
+          type: string
         lettersGuessed:
-          type: "array"
+          type: array
           items:
-            $ref: "#/definitions/Letter"
+            $ref: #/definitions/Letter
         progress:
-          type: "array"
+          type: array
           items:
-            $ref: "#/definitions/Letter?"
+            $ref: #/definitions/Letter?
         misses:
-          type: "integer"
+          type: integer
           maximum: 10
         complete:
-          type: "boolean"
+          type: boolean
     Letter:
-      type: "string"
+      type: string
       minLength: 1
       maxLength: 1
     Letter?:
-      type: "string"
+      type: string
       nullable: true
       minLength: 1
       maxLength: 1
     Move:
-      type: "object"
+      type: object
       properties:
         letter:
-          $ref: "#/definitions/Letter"
+          $ref: #/definitions/Letter
     Word:
-      type: "object"
+      type: object
       properties:
         word:
           type: string

@@ -1,9 +1,7 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const Word = require("../../models/word");
 
 let wordRouter = express.Router();
-wordRouter.use(bodyParser.json());
 
 wordRouter.get("/", function(req, res) {
   const random = req.query.random === "true";

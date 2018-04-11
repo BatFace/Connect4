@@ -16,6 +16,8 @@ mongoimport --db hangman --collection words --jsonArray --drop --file HangmanSer
     - DB_CONNECTION_STRING=\<mongodb connection string goes here e.g. mongodb://localhost/hangman />
     
     - HANGMAN_CLIENT_URL=http://localhost:3000
+    
+    - SWAGGER_CONFIG=./local.api.yml
 
 4. Add a .env file in the root of the client directory with:
 

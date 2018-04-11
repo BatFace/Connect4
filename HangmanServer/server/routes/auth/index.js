@@ -7,9 +7,6 @@ const User = require("../../models/user");
 
 const authRouter = express.Router();
 
-authRouter.use(bodyParser.urlencoded({ extended: false }));
-authRouter.use(bodyParser.json());
-
 authRouter.post("/register", function(req, res) {
   const hashedPassword = bcrypt.hashSync(req.body.password, 8);
 

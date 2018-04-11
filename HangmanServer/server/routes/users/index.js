@@ -1,10 +1,8 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const verifyToken = require("../verifyToken");
 const User = require("../../models/user");
 
 let userRouter = express.Router();
-userRouter.use(bodyParser.json());
 
 userRouter.get("/", function(req, res) {
   User.find({}, "-__v", function(err, users) {
